@@ -52,16 +52,15 @@ func Run(arr []string) {
 		}
 		
 
-		// Process input and print
 		for _, word := range input {
 			if word == "" {
 				fmt.Println()
+			} else if flagtype == "justify" {
+				printAsciiJustify(word, alphabet, flagtype)
+			} else if flagtype == "right" || flagtype == "center" || flagtype == "left" {
+				printAsciiAlign(word, alphabet, flagtype)
 			} else {
-				if flagtype =="right" || flagtype == "center" || flagtype == "left" || flagtype == "justify"{
-						printAsciiJustify(word, alphabet, flagtype)
-				}else {
-					printAscii(word, alphabet)
-				}
+				printAscii(word, alphabet)
 			}
 		}
 	}
@@ -83,8 +82,9 @@ func checkflag(arr []string) (string, string) {
 		flagtype = strings.TrimPrefix(arr[1], "--align=")
 		if len(arr) == 3 {
 			inputstring = arr[2]
-		} else {
-			printUsageMessageAndExit()
+		} else if len(arr) == 4 {
+			inputstring=arr[2]
+			
 		}
 	} else {
 		inputstring = arr[1]
