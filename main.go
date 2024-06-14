@@ -114,6 +114,13 @@ func createMap(file *os.File) map[rune][]string {
 			letter++
 		}
 	}
+	fmt.Println(len(line))
+	fmt.Println(len(asciiMap))
+	if len(asciiMap) == 0 || len(asciiMap) != 95 {
+		fmt.Println("the banner file   does not contain the expected format\n", file)
+		return nil
+	}
+
 	return asciiMap
 }
 
