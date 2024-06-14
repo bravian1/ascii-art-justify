@@ -70,6 +70,32 @@ func validateArgs(args []string) (string, string, string) {
 	return bannerfile, flag, userInput
 }
 
+// check flag
+func checkFlag(input string) (string, bool) {
+	if strings.HasPrefix(input, "--align=") {
+		s := strings.Split(input, "=")
+		// fmt.Printf("%q\n", s)
+		if !((s[1] == "left") || (s[1] == "right") || (s[1] == "justify") || (s[1] == "center")) {
+			printErrorAndExit()
+		} else {
+			flagtype := strings.Trim(input, "-align=")
+			return flagtype, true
+		}
+	}
+	return "", false
+}
+
+// Print error message
+func printErrorAndExit() {
+	fmt.Printf("Usage: go run . [OPTION] [STRING] [BANNER]\n\nExample: go run . --align=right something standard\n")
+	os.Exit(0)
+}
+
+// valid banner
+func validBanner(banner string) bool {
+	return banner == "standard" || banner == "shadow" || banner == "thinkertoy"
+}
+
 func createMap(file *os.File) map[rune][]string {
 	scanner := bufio.NewScanner(file)
 	scanner.Scan()
@@ -92,38 +118,24 @@ func createMap(file *os.File) map[rune][]string {
 }
 
 func printNormal(input string, asciiMap map[rune][]string) {
-	for i := 0; i < 8; i++ {
-		lineOutput := ""
-		for _, char := range input {
-
-			lineOutput += asciiMap[char][i]
-		}
-		fmt.Println(lineOutput)
-	}
-}
-
-// check flag
-func checkFlag(input string) (string, bool) {
-	if strings.HasPrefix(input, "--align=") {
-		s := strings.Split(input, "=")
-		//fmt.Printf("%q\n", s)
-		if !((s[1] == "left") || (s[1] == "right") || (s[1] == "justify") || (s[1] == "center")) {
-			printErrorAndExit()
+	input = strings.ReplaceAll(input, "\\n", "\n")
+	inputSlice := strings.Split(input, "\n")
+	for _, line := range inputSlice {
+		if line == "" {
+			fmt.Println()
 		} else {
-			flagtype := strings.Trim(input, "-align=")
-			return flagtype, true
+			for i := 0; i < 8; i++ {
+				lineOutput := ""
+
+				for _, char := range line {
+					lineOutput += asciiMap[char][i]
+				}
+
+				fmt.Println(lineOutput)
+			}
 		}
+		fmt.Println()
 	}
-	return "", false
-}
-
-func validBanner(banner string) bool {
-	return banner == "standard" || banner == "shadow" || banner == "thinkertoy"
-}
-
-func printErrorAndExit() {
-	fmt.Printf("Usage: go run . [OPTION] [STRING] [BANNER]\n\nExample: go run . --align=right something standard\n")
-	os.Exit(0)
 }
 
 func getTerminalWidth() int {
@@ -162,19 +174,40 @@ func getSpacesBetween(flag string, asciiString string) int {
 }
 
 func printAlign(input string, flag string, asciiMap map[rune][]string) {
-	for i := 0; i < 8; i++ {
-		lineOutput := ""
-		for _, char := range input {
-
-			line, ok := asciiMap[char]
-			if !ok {
-				fmt.Printf("Unavailable %c\n", char)
-			}
-			lineOutput += line[i]
+	input = strings.ReplaceAll(input, "\\n", "\n")
+	inputSlice := strings.Split(input, "\n")
+	combinedWidth := 0
+	for _, word := range inputSlice {
+		for _, char := range word {
+			combinedWidth += len(asciiMap[char][0])
 		}
-		spaces := getSpacesBetween(flag, lineOutput)
-		lineOutput = strings.Repeat(" ", spaces) + lineOutput
-		fmt.Println(lineOutput)
+	}
+	// get terminal width
+	terminalWidth := getTerminalWidth()
+	if combinedWidth > terminalWidth {
+		printNormal(input, asciiMap)
+		return
+	}
+
+	for _, word := range inputSlice {
+		if word == "" {
+			fmt.Println()
+		} else {
+			for i := 0; i < 8; i++ {
+				lineOutput := ""
+				for _, char := range word {
+
+					line, ok := asciiMap[char]
+					if !ok {
+						fmt.Printf("Unavailable %c\n", char)
+					}
+					lineOutput += line[i]
+				}
+				spaces := getSpacesBetween(flag, lineOutput)
+				lineOutput = strings.Repeat(" ", spaces) + lineOutput
+				fmt.Println(lineOutput)
+			}
+		}
 	}
 }
 
