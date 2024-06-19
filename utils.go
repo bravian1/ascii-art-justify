@@ -86,12 +86,10 @@ func validateArgs(args []string) (string, string, string) {
 // check flag
 func checkFlag(input string) (string, bool) {
 	if strings.HasPrefix(input, "--align=") {
-		s := strings.Split(input, "=")
-		// fmt.Printf("%q\n", s)
-		if !((s[1] == "left") || (s[1] == "right") || (s[1] == "justify") || (s[1] == "center")) {
+		flagtype := strings.TrimPrefix(input, "--align=")
+		if !(flagtype == "left" || flagtype == "right" || flagtype == "center" || flagtype == "justify") {
 			printErrorAndExit()
 		} else {
-			flagtype := strings.Trim(input, "-align=")
 			return flagtype, true
 		}
 	}
