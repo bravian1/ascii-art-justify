@@ -33,8 +33,9 @@ func justifyHelper(input string, asciiMap map[rune][]string) {
 	}
 	// calculate the total number of spaces
 	totalSpaces := terminalWidth - combinedWidth
-	// divide the spaces equally depending on the number of words
-	spacesBetween := totalSpaces / numGaps
+	// divide the spaces equally depending on the number of words -1 for cat -e
+	spacesBetween := totalSpaces/numGaps - 1
+	extraSpaces := totalSpaces % numGaps
 	// print
 	for i := 0; i < 8; i++ {
 		lineOutput := ""
@@ -44,6 +45,9 @@ func justifyHelper(input string, asciiMap map[rune][]string) {
 			}
 			if j < numGaps {
 				lineOutput += strings.Repeat(" ", spacesBetween)
+				if j < extraSpaces {
+					lineOutput += " "
+				}
 			}
 		}
 
