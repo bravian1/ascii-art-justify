@@ -16,7 +16,6 @@ func PrintJustify(input string, asciiMap map[rune][]string) {
 }
 
 func JustifyHelper(input string, asciiMap map[rune][]string) {
-	// split the word
 	splitWord := strings.Split(input, " ")
 	// get the number of gaps
 	numGaps := len(splitWord) - 1

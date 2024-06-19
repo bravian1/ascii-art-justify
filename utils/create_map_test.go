@@ -15,7 +15,7 @@ func Test_CreateMap(t *testing.T) {
 		file string // test file
 		args
 		want    map[rune][]string
-		wantErr bool // whether an error is expected
+		wantErr bool
 	}{
 		{
 			name:    "valid file with 95 characters",

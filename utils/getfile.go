@@ -31,7 +31,7 @@ func GetFile(fileName string) {
 		},
 	}
 
-	// Put contents on file
+	// Put fetched contents on file
 	response, err := client.Get(fullURL)
 	if err != nil {
 		// timeout error

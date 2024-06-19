@@ -72,7 +72,7 @@ func Test_ContainsUnsupportedCharacters(t *testing.T) {
 	}
 }
 
-// test for valid banner flag
+// test for valid banner
 func Test_ValidBanner(t *testing.T) {
 	tests := []struct {
 		name   string
@@ -179,8 +179,7 @@ func Test_ValidateArgs(t *testing.T) {
 	}
 }
 
-// test to check flags for alignment
-
+// test to check flags for alignment flag
 func Test_CheckFlag(t *testing.T) {
 	tests := []struct {
 		name       string

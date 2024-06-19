@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
 
@@ -9,9 +10,10 @@ import (
 )
 
 func main() {
-	// get banner file
-	// turn banner file to map
-	// start by opening file
+	// fetch the command line arguments,
+	// validate the arguments and get filepath for the banner file,
+	// create map from banner file,
+	// align content accordingly and display results to user
 	args := os.Args[1:]
 	bannerfile, flag, input := utils.ValidateArgs(args)
 	if containsUnsupported, errmsg := utils.ContainsUnsupportedCharacters(input); containsUnsupported {
@@ -22,8 +24,10 @@ func main() {
 	file, err := os.Open(bannerfile + ".txt")
 	if err != nil {
 		utils.GetFile(bannerfile + ".txt")
-		file, _ = os.Open(bannerfile + ".txt")
-		// log.Fatal(err)
+		file, err = os.Open(bannerfile + ".txt")
+		if err != nil {
+			fmt.Println("error: ", err)
+		}
 	}
 	defer file.Close()
 

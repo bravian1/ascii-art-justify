@@ -9,12 +9,11 @@ import (
 	"strings"
 )
 
+// function to get the terminal width instead of using one fixed width
 func GetTerminalWidth() int {
 	cmd := exec.Command("stty", "size")
-	// command.Run()
 	cmd.Stdin = os.Stdin
 	output, err := cmd.Output()
-	// fmt.Println("Output: ", output)
 	if err != nil {
 		log.Fatal("Error: ", err)
 	}
@@ -25,10 +24,10 @@ func GetTerminalWidth() int {
 	if err != nil {
 		log.Fatal("Error: ", err)
 	}
-	// fmt.Println(size)
 	return size
 }
 
+// function to get spaces to add for alignment depending on the alignment flag
 func GetSpacesBetween(flag string, asciiString string) int {
 	terminalWidth := GetTerminalWidth()
 
@@ -44,12 +43,14 @@ func GetSpacesBetween(flag string, asciiString string) int {
 	return spaces
 }
 
+// function to assign arguments appropriately depending on length of arguments
 func ValidateArgs(args []string) (string, string, string) {
 	var shouldAlign bool
 	var userInput string
 	var flag string
 	bannerfile := "standard"
 
+	// usage: go run . --align=right something standard
 	if len(args) == 3 {
 		if flag, shouldAlign = CheckFlag(args[0]); shouldAlign {
 			userInput = args[1]
@@ -57,9 +58,13 @@ func ValidateArgs(args []string) (string, string, string) {
 		} else {
 			PrintErrorAndExit()
 		}
+
+		// usage: go run . --align=right something
 	} else if len(args) == 2 {
 		if flag, shouldAlign = CheckFlag(args[0]); shouldAlign {
 			userInput = args[1]
+
+			// usage: go run . something standard
 		} else {
 			userInput = args[0]
 			if ValidBanner(args[1]) {
@@ -68,6 +73,8 @@ func ValidateArgs(args []string) (string, string, string) {
 				PrintErrorAndExit()
 			}
 		}
+
+		// usage: go run . something
 	} else if len(args) == 1 {
 		userInput = args[0]
 		if strings.HasPrefix(userInput, "--align=") {
@@ -83,7 +90,7 @@ func ValidateArgs(args []string) (string, string, string) {
 	return bannerfile, flag, userInput
 }
 
-// check flag
+// function to check if correct flag is passed
 func CheckFlag(input string) (string, bool) {
 	if strings.HasPrefix(input, "--align=") {
 		flagtype := strings.TrimPrefix(input, "--align=")
@@ -96,19 +103,19 @@ func CheckFlag(input string) (string, bool) {
 	return "", false
 }
 
-// Print error message
+// function to print and exit program due to usage error
 func PrintErrorAndExit() {
 	fmt.Printf("Usage: go run . [OPTION] [STRING] [BANNER]\n\nExample: go run . --align=right something standard\n")
 	os.Exit(0)
 }
 
-// valid banner
+// function to check if the correct banner is passed
 func ValidBanner(banner string) bool {
 	return banner == "standard" || banner == "shadow" || banner == "thinkertoy"
 }
 
+// function to check if input string contains unprintable and unsupported characters that are not within the ascii printable range
 func ContainsUnsupportedCharacters(input string) (bool, string) {
-	// special characters
 	NonPrintableChars := []string{"\\a", "\\b", "\\t", "\\v", "\\f", "\\r", "\a", "\b", "\t", "\v", "\f", "\r"}
 	for _, char := range NonPrintableChars {
 		if contains := strings.Contains(input, char); contains {
