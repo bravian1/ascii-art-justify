@@ -9,8 +9,8 @@ func main() {
 	// get banner file
 	// turn banner file to map
 	// start by opening file
-
-	bannerfile, flag, input := validateArgs(os.Args)
+	args := os.Args[1:]
+	bannerfile, flag, input := validateArgs(args)
 	if containsUnsupported, errmsg := containsUnsupportedCharacters(input); containsUnsupported {
 		log.Fatalf("[error]\n\t%s\n", errmsg)
 	} else {

@@ -41,6 +41,13 @@ func Test_createMap(t *testing.T) {
 			want:    nil,
 			wantErr: true,
 		},
+
+		{
+			name:    "file with characters with length less than 8",
+			file:    "testdata/charlenght.txt",
+			want:    nil,
+			wantErr: true,
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
