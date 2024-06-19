@@ -50,26 +50,26 @@ func validateArgs(args []string) (string, string, string) {
 	var flag string
 	bannerfile := "standard"
 
-	if len(args) == 4 {
-		if flag, shouldAlign = checkFlag(args[1]); shouldAlign {
-			userInput = args[2]
-			bannerfile = args[3]
+	if len(args) == 3 {
+		if flag, shouldAlign = checkFlag(args[0]); shouldAlign {
+			userInput = args[1]
+			bannerfile = args[2]
 		} else {
 			printErrorAndExit()
 		}
-	} else if len(args) == 3 {
-		if flag, shouldAlign = checkFlag(args[1]); shouldAlign {
-			userInput = args[2]
-		} else {
+	} else if len(args) == 2 {
+		if flag, shouldAlign = checkFlag(args[0]); shouldAlign {
 			userInput = args[1]
-			if validBanner(args[2]) {
-				bannerfile = args[2]
+		} else {
+			userInput = args[0]
+			if validBanner(args[1]) {
+				bannerfile = args[1]
 			} else {
 				printErrorAndExit()
 			}
 		}
-	} else if len(args) == 2 {
-		userInput = args[1]
+	} else if len(args) == 1 {
+		userInput = args[0]
 		if strings.HasPrefix(userInput, "--align=") {
 			printErrorAndExit()
 		}
