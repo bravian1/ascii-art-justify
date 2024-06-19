@@ -1,4 +1,4 @@
-package main
+package utils
 
 import (
 	"os"
@@ -6,7 +6,7 @@ import (
 	"testing"
 )
 
-func Test_createMap(t *testing.T) {
+func Test_CreateMap(t *testing.T) {
 	type args struct {
 		file *os.File
 	}
@@ -51,8 +51,8 @@ func Test_createMap(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := createMap(tt.args.file); !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("createMap() = %v, want %v", got, tt.want)
+			if got := CreateMap(tt.args.file); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("CreateMap() = %v, want %v", got, tt.want)
 			}
 		})
 	}

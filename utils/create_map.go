@@ -1,4 +1,4 @@
-package main
+package utils
 
 import (
 	"bufio"
@@ -6,7 +6,7 @@ import (
 	"os"
 )
 
-func createMap(file *os.File) map[rune][]string {
+func CreateMap(file *os.File) map[rune][]string {
 	scanner := bufio.NewScanner(file)
 	scanner.Scan()
 	asciiMap := make(map[rune][]string)

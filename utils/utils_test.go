@@ -1,4 +1,4 @@
-package main
+package utils
 
 import (
 	"strings"
@@ -6,7 +6,7 @@ import (
 )
 
 // test  for unsupported and unallowed characters
-func Test_containsUnsupportedCharacters(t *testing.T) {
+func Test_ContainsUnsupportedCharacters(t *testing.T) {
 	tests := []struct {
 		name    string
 		input   string
@@ -61,19 +61,19 @@ func Test_containsUnsupportedCharacters(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, errmsg := containsUnsupportedCharacters(tt.input)
+			got, errmsg := ContainsUnsupportedCharacters(tt.input)
 			if got != tt.want {
-				t.Errorf("containsUnsupportedCharacters() got = %v, want %v", got, tt.want)
+				t.Errorf("ContainsUnsupportedCharacters() got = %v, want %v", got, tt.want)
 			}
 			if got && !strings.Contains(errmsg, "Error: input contains non-printable/ unallowed character") != tt.want {
-				t.Errorf("containsUnsupportedCharacters() returned unexpected error message: %s,", errmsg)
+				t.Errorf("ContainsUnsupportedCharacters() returned unexpected error message: %s,", errmsg)
 			}
 		})
 	}
 }
 
 // test for valid banner flag
-func Test_validBanner(t *testing.T) {
+func Test_ValidBanner(t *testing.T) {
 	tests := []struct {
 		name   string
 		banner string
@@ -118,15 +118,15 @@ func Test_validBanner(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := validBanner(tt.banner); got != tt.want {
-				t.Errorf("validBanner() = %v, want %v", got, tt.want)
+			if got := ValidBanner(tt.banner); got != tt.want {
+				t.Errorf("ValidBanner() = %v, want %v", got, tt.want)
 			}
 		})
 	}
 }
 
 // test for valid arguments depending on the length of arguments
-func Test_validateArgs(t *testing.T) {
+func Test_ValidateArgs(t *testing.T) {
 	tests := []struct {
 		name          string
 		args          []string
@@ -165,15 +165,15 @@ func Test_validateArgs(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, got1, got2 := validateArgs(tt.args)
+			got, got1, got2 := ValidateArgs(tt.args)
 			if got != tt.expectedFile {
-				t.Errorf("validateArgs() got = %v, want %v", got, tt.expectedFile)
+				t.Errorf("ValidateArgs() got = %v, want %v", got, tt.expectedFile)
 			}
 			if got1 != tt.expectedFlag {
-				t.Errorf("validateArgs() got1 = %v, want %v", got1, tt.expectedFlag)
+				t.Errorf("ValidateArgs() got1 = %v, want %v", got1, tt.expectedFlag)
 			}
 			if got2 != tt.expectedInput {
-				t.Errorf("validateArgs() got2 = %v, want %v", got2, tt.expectedInput)
+				t.Errorf("ValidateArgs() got2 = %v, want %v", got2, tt.expectedInput)
 			}
 		})
 	}
@@ -181,7 +181,7 @@ func Test_validateArgs(t *testing.T) {
 
 // test to check flags for alignment
 
-func Test_checkFlag(t *testing.T) {
+func Test_CheckFlag(t *testing.T) {
 	tests := []struct {
 		name       string
 		flagString string
@@ -220,12 +220,12 @@ func Test_checkFlag(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, got1 := checkFlag(tt.flagString)
+			got, got1 := CheckFlag(tt.flagString)
 			if got != tt.want {
-				t.Errorf("checkFlag() got = %v, want %v", got, tt.want)
+				t.Errorf("CheckFlag() got = %v, want %v", got, tt.want)
 			}
 			if got1 != tt.want1 {
-				t.Errorf("checkFlag() got1 = %v, want %v", got1, tt.want1)
+				t.Errorf("CheckFlag() got1 = %v, want %v", got1, tt.want1)
 			}
 		})
 	}

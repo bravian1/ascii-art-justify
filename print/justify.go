@@ -1,19 +1,21 @@
-package main
+package printArt
 
 import (
 	"fmt"
 	"strings"
+
+	"ascii-art-justify/utils"
 )
 
-func printJustify(input string, asciiMap map[rune][]string) {
+func PrintJustify(input string, asciiMap map[rune][]string) {
 	input = strings.ReplaceAll(input, "\\n", "\n")
 	words := strings.Split(input, "\n")
 	for _, word := range words {
-		justifyHelper(word, asciiMap)
+		JustifyHelper(word, asciiMap)
 	}
 }
 
-func justifyHelper(input string, asciiMap map[rune][]string) {
+func JustifyHelper(input string, asciiMap map[rune][]string) {
 	// split the word
 	splitWord := strings.Split(input, " ")
 	// get the number of gaps
@@ -26,9 +28,9 @@ func justifyHelper(input string, asciiMap map[rune][]string) {
 		}
 	}
 	// get terminal width
-	terminalWidth := getTerminalWidth()
+	terminalWidth := utils.GetTerminalWidth()
 	if combinedWidth > terminalWidth || numGaps == 0 {
-		printNormal(input, asciiMap)
+		PrintNormal(input, asciiMap)
 		return
 	}
 	// calculate the total number of spaces

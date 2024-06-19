@@ -1,11 +1,13 @@
-package main
+package printArt
 
 import (
 	"fmt"
 	"strings"
+
+	"ascii-art-justify/utils"
 )
 
-func printAlign(input string, flag string, asciiMap map[rune][]string) {
+func PrintAlign(input string, flag string, asciiMap map[rune][]string) {
 	input = strings.ReplaceAll(input, "\\n", "\n")
 	inputSlice := strings.Split(input, "\n")
 	combinedWidth := 0
@@ -15,9 +17,9 @@ func printAlign(input string, flag string, asciiMap map[rune][]string) {
 		}
 	}
 	// get terminal width
-	terminalWidth := getTerminalWidth()
+	terminalWidth := utils.GetTerminalWidth()
 	if combinedWidth > terminalWidth {
-		printNormal(input, asciiMap)
+		PrintNormal(input, asciiMap)
 		return
 	}
 
@@ -35,7 +37,7 @@ func printAlign(input string, flag string, asciiMap map[rune][]string) {
 					}
 					lineOutput += line[i]
 				}
-				spaces := getSpacesBetween(flag, lineOutput)
+				spaces := utils.GetSpacesBetween(flag, lineOutput)
 				lineOutput = strings.Repeat(" ", spaces) + lineOutput
 				fmt.Println(lineOutput)
 			}
