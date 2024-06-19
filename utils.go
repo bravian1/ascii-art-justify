@@ -76,6 +76,10 @@ func validateArgs(args []string) (string, string, string) {
 	} else {
 		printErrorAndExit()
 	}
+
+	if len(userInput) == 0 {
+		printErrorAndExit()
+	}
 	return bannerfile, flag, userInput
 }
 
