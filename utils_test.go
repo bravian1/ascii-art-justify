@@ -178,3 +178,55 @@ func Test_validateArgs(t *testing.T) {
 		})
 	}
 }
+
+// test to check flags for alignment
+
+func Test_checkFlag(t *testing.T) {
+	tests := []struct {
+		name       string
+		flagString string
+		want       string
+		want1      bool
+		wantErr    bool
+	}{
+		{
+			name:       "Valid left alignment flag",
+			flagString: "--align=left",
+			want:       "left",
+			want1:      true,
+			wantErr:    false,
+		},
+		{
+			name:       "Valid right alignment flag",
+			flagString: "--align=right",
+			want:       "right",
+			want1:      true,
+			wantErr:    false,
+		},
+		{
+			name:       "Valid justify alignment flag",
+			flagString: "--align=justify",
+			want:       "justify",
+			want1:      true,
+			wantErr:    false,
+		},
+		{
+			name:       "Valid center alignment flag",
+			flagString: "--align=center",
+			want:       "center",
+			want1:      true,
+			wantErr:    false,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got, got1 := checkFlag(tt.flagString)
+			if got != tt.want {
+				t.Errorf("checkFlag() got = %v, want %v", got, tt.want)
+			}
+			if got1 != tt.want1 {
+				t.Errorf("checkFlag() got1 = %v, want %v", got1, tt.want1)
+			}
+		})
+	}
+}
