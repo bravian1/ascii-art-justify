@@ -2,6 +2,7 @@ package main
 
 import (
 	"bufio"
+	"fmt"
 	"os"
 )
 
@@ -11,9 +12,9 @@ func createMap(file *os.File) map[rune][]string {
 	asciiMap := make(map[rune][]string)
 	letter := ' '
 	count := 0
-	line := ""
+
 	for scanner.Scan() {
-		line = scanner.Text()
+		line := scanner.Text()
 		if count != 8 {
 			asciiMap[letter] = append(asciiMap[letter], line)
 			count++
@@ -22,6 +23,9 @@ func createMap(file *os.File) map[rune][]string {
 			count = 0
 			letter++
 		}
+	}
+	if len(asciiMap) == 0 || len(asciiMap) != 95 {
+		fmt.Println("the banner file does not contain the expected format\n", file)
 	}
 	return asciiMap
 }
