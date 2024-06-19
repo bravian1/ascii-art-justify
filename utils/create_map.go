@@ -6,7 +6,9 @@ import (
 	"os"
 )
 
+// program to create a map of the 95 printable ascii characters to their art representation from a banner file
 func CreateMap(file *os.File) map[rune][]string {
+	// use scanner to avoid issues with thinkertoy.txt
 	scanner := bufio.NewScanner(file)
 	scanner.Scan()
 	asciiMap := make(map[rune][]string)
