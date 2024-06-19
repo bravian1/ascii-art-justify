@@ -1,11 +1,11 @@
-package main
+package printArt
 
 import (
 	"fmt"
 	"strings"
 )
 
-func printNormal(input string, asciiMap map[rune][]string) {
+func PrintNormal(input string, asciiMap map[rune][]string) {
 	input = strings.ReplaceAll(input, "\\n", "\n")
 	inputSlice := strings.Split(input, "\n")
 	for _, line := range inputSlice {

@@ -1,4 +1,4 @@
-package main
+package utils
 
 import (
 	"fmt"
@@ -9,7 +9,7 @@ import (
 	"strings"
 )
 
-func getTerminalWidth() int {
+func GetTerminalWidth() int {
 	cmd := exec.Command("stty", "size")
 	// command.Run()
 	cmd.Stdin = os.Stdin
@@ -29,8 +29,8 @@ func getTerminalWidth() int {
 	return size
 }
 
-func getSpacesBetween(flag string, asciiString string) int {
-	terminalWidth := getTerminalWidth()
+func GetSpacesBetween(flag string, asciiString string) int {
+	terminalWidth := GetTerminalWidth()
 
 	spaces := 0
 	switch flag {
@@ -44,50 +44,52 @@ func getSpacesBetween(flag string, asciiString string) int {
 	return spaces
 }
 
-func validateArgs(args []string) (string, string, string) {
+func ValidateArgs(args []string) (string, string, string) {
 	var shouldAlign bool
 	var userInput string
 	var flag string
 	bannerfile := "standard"
 
-	if len(args) == 4 {
-		if flag, shouldAlign = checkFlag(args[1]); shouldAlign {
-			userInput = args[2]
-			bannerfile = args[3]
-		} else {
-			printErrorAndExit()
-		}
-	} else if len(args) == 3 {
-		if flag, shouldAlign = checkFlag(args[1]); shouldAlign {
-			userInput = args[2]
-		} else {
+	if len(args) == 3 {
+		if flag, shouldAlign = CheckFlag(args[0]); shouldAlign {
 			userInput = args[1]
-			if validBanner(args[2]) {
-				bannerfile = args[2]
-			} else {
-				printErrorAndExit()
-			}
+			bannerfile = args[2]
+		} else {
+			PrintErrorAndExit()
 		}
 	} else if len(args) == 2 {
-		userInput = args[1]
+		if flag, shouldAlign = CheckFlag(args[0]); shouldAlign {
+			userInput = args[1]
+		} else {
+			userInput = args[0]
+			if ValidBanner(args[1]) {
+				bannerfile = args[1]
+			} else {
+				PrintErrorAndExit()
+			}
+		}
+	} else if len(args) == 1 {
+		userInput = args[0]
 		if strings.HasPrefix(userInput, "--align=") {
-			printErrorAndExit()
+			PrintErrorAndExit()
 		}
 	} else {
-		printErrorAndExit()
+		PrintErrorAndExit()
+	}
+
+	if len(userInput) == 0 {
+		PrintErrorAndExit()
 	}
 	return bannerfile, flag, userInput
 }
 
 // check flag
-func checkFlag(input string) (string, bool) {
+func CheckFlag(input string) (string, bool) {
 	if strings.HasPrefix(input, "--align=") {
-		s := strings.Split(input, "=")
-		// fmt.Printf("%q\n", s)
-		if !((s[1] == "left") || (s[1] == "right") || (s[1] == "justify") || (s[1] == "center")) {
-			printErrorAndExit()
+		flagtype := strings.TrimPrefix(input, "--align=")
+		if !(flagtype == "left" || flagtype == "right" || flagtype == "center" || flagtype == "justify") {
+			PrintErrorAndExit()
 		} else {
-			flagtype := strings.Trim(input, "-align=")
 			return flagtype, true
 		}
 	}
@@ -95,17 +97,17 @@ func checkFlag(input string) (string, bool) {
 }
 
 // Print error message
-func printErrorAndExit() {
+func PrintErrorAndExit() {
 	fmt.Printf("Usage: go run . [OPTION] [STRING] [BANNER]\n\nExample: go run . --align=right something standard\n")
 	os.Exit(0)
 }
 
 // valid banner
-func validBanner(banner string) bool {
+func ValidBanner(banner string) bool {
 	return banner == "standard" || banner == "shadow" || banner == "thinkertoy"
 }
 
-func containsUnsupportedCharacters(input string) (bool, string) {
+func ContainsUnsupportedCharacters(input string) (bool, string) {
 	// special characters
 	NonPrintableChars := []string{"\\a", "\\b", "\\t", "\\v", "\\f", "\\r", "\a", "\b", "\t", "\v", "\f", "\r"}
 	for _, char := range NonPrintableChars {
