@@ -124,3 +124,57 @@ func Test_validBanner(t *testing.T) {
 		})
 	}
 }
+
+// test for valid arguments depending on the length of arguments
+func Test_validateArgs(t *testing.T) {
+	tests := []struct {
+		name          string
+		args          []string
+		expectedFile  string
+		expectedFlag  string
+		expectedInput string
+	}{
+		{
+			name:          "Valid case with all arguments",
+			args:          []string{"--align=justify", "Hello world", "shadow"},
+			expectedFile:  "shadow",
+			expectedFlag:  "justify",
+			expectedInput: "Hello world",
+		},
+		{
+			name:          "Valid case with flag and userInput",
+			args:          []string{"--align=right", "Hello World"},
+			expectedFile:  "standard",
+			expectedFlag:  "right",
+			expectedInput: "Hello World",
+		},
+		{
+			name:          "Valid case with userInput and bannerfile",
+			args:          []string{"Hello World", "shadow"},
+			expectedFile:  "shadow",
+			expectedFlag:  "",
+			expectedInput: "Hello World",
+		},
+		{
+			name:          "Valid case with only userInput",
+			args:          []string{"user_input"},
+			expectedFile:  "standard",
+			expectedFlag:  "",
+			expectedInput: "user_input",
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got, got1, got2 := validateArgs(tt.args)
+			if got != tt.expectedFile {
+				t.Errorf("validateArgs() got = %v, want %v", got, tt.expectedFile)
+			}
+			if got1 != tt.expectedFlag {
+				t.Errorf("validateArgs() got1 = %v, want %v", got1, tt.expectedFlag)
+			}
+			if got2 != tt.expectedInput {
+				t.Errorf("validateArgs() got2 = %v, want %v", got2, tt.expectedInput)
+			}
+		})
+	}
+}
