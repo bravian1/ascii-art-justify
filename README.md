@@ -33,35 +33,14 @@ The project also allows the user to include the banner file name that they need 
 
  These include and limited to:
 
-**NOTE: The examples are not to be taken literary, but as a rough estimate of how the text should appear**
+**NOTE: The example are not to be taken literary, but as a rough estimate of how the text should appear**
 
 + left
-
-```bash
-
- _              _   _          
-| |            | | | |         
-| |__     ___  | | | |   ___   
-|  _ \   / _ \ | | | |  / _ \  
-| | | | |  __/ | | | | | (_) | 
-|_| |_|  \___| |_| |_|  \___/  
-                               
-                               
-```
-
 + right
-
-```bash
-                                                                                                                              _              _   _          
-                                                                                                                             | |            | | | |         
-                                                                                                                             | |__     ___  | | | |   ___   
-                                                                                                                             |  _ \   / _ \ | | | |  / _ \  
-                                                                                                                             | | | | |  __/ | | | | | (_) | 
-                                                                                                                             |_| |_|  \___| |_| |_|  \___/  
-                                                                                                                                    
-                                                                                                                                                            
-```
 + center
++ justify
+
+A random example is the alignment: center
 
 ```bash
 
@@ -75,18 +54,7 @@ The project also allows the user to include the banner file name that they need 
                                                                                  
 
 ```
-+ justify
 
-```bash
-            _   _                                                                                                                             _       _  
-| |            | | | |                                                                                                                           | |     | | 
-| |__     ___  | | | |   ___                                                                                           __      __   ___    _ __  | |   __| | 
-|  _ \   / _ \ | | | |  / _ \                                                                                          \ \ /\ / /  / _ \  | '__| | |  / _` | 
-| | | | |  __/ | | | | | (_) |                                                                                          \ V  V /  | (_) | | |    | | | (_| | 
-|_| |_|  \___| |_| |_|  \___/                                                                                            \_/\_/    \___/  |_|    |_|  \__,_| 
-                                                                                                                                   
-                                                                                                                                   
-```
 
 ## Usage
 
