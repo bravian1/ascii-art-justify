@@ -74,17 +74,23 @@ go run . [STRING]
 
 The following is an example of how to do so:
 
+##### installation
+
 ```bash
-$ git clone https://learn.zone01kisumu.ke/git/bnyatoro/ascii-art-justify.git
-$ cd ascii-art-justify
-$ clear
-$ go run . --align=left "Hello" "standard"
+git clone https://learn.zone01kisumu.ke/git/bnyatoro/ascii-art-justify.git
+cd ascii-art-justify
+clear
+```
+##### run the program
+
+```bash
+go run . --align=left "Hello"
 ```
 
 Additionally, to switch between banner files, you can provide an additional argument which has to be the last argument
 
 ```bash
-$ go run . --align=center "Hello" "shadow"
+go run . --align=center "Hello" "shadow"
 ```
 
 
