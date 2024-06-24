@@ -32,9 +32,12 @@ func main() {
 	defer file.Close()
 
 	asciiMap := utils.CreateMap(file)
-	if flag == "justify" {
-		printArt.PrintJustify(input, asciiMap)
-	} else {
-		printArt.PrintAlign(input, flag, asciiMap)
+	if asciiMap != nil {
+		// everything was created fine, print...
+		if flag == "justify" {
+			printArt.PrintJustify(input, asciiMap)
+		} else {
+			printArt.PrintAlign(input, flag, asciiMap)
+		}
 	}
 }
