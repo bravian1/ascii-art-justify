@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"log"
 	"os"
 	"strings"
@@ -21,17 +20,10 @@ func main() {
 		log.Fatalf("Error: input contains unallowed character: %q\n", offendingCharacter)
 	}
 
-	file, err := os.Open(bannerfile + ".txt")
-	if err != nil {
-		utils.GetFile(bannerfile + ".txt")
-		file, err = os.Open(bannerfile + ".txt")
-		if err != nil {
-			fmt.Println("error: ", err)
-		}
+	asciiMap := utils.CreateMap(bannerfile)
+	if asciiMap == nil {
+		os.Exit(1)
 	}
-	defer file.Close()
-
-	asciiMap := utils.CreateMap(file)
 	data := strings.ReplaceAll(input, "\\n", "\n")
 	words := strings.Split(data, "\n")
 
