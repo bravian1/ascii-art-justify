@@ -34,7 +34,7 @@ func GetSpaces(flag string, asciiString string) int {
 	spaces := 0
 	switch flag {
 	case "right":
-		spaces = terminalWidth - len(asciiString) -1
+		spaces = terminalWidth - len(asciiString) 
 	case "left":
 		spaces = 0
 	case "center":

@@ -27,7 +27,7 @@ func Justify(input string, asciiMap map[rune][]string) {
 	// calculate the total number of spaces
 	totalSpaces := terminalWidth - combinedWidth
 	// divide the spaces equally depending on the number of words -1 for cat -e
-	spacesBetween := totalSpaces/numGaps - 1
+	spacesBetween := totalSpaces/numGaps
 	extraSpaces := totalSpaces % numGaps
 	// print
 	for i := 0; i < 8; i++ {
