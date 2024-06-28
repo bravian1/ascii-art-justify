@@ -7,8 +7,7 @@ import (
 	"ascii-art-justify/utils"
 )
 
-func PrintAlign(input string, flag string, asciiMap map[rune][]string) {
-	input = strings.ReplaceAll(input, "\\n", "\n")
+func Align(input string, flag string, asciiMap map[rune][]string) {
 	inputSlice := strings.Split(input, "\n")
 	combinedWidth := 0
 	for _, word := range inputSlice {
@@ -19,7 +18,7 @@ func PrintAlign(input string, flag string, asciiMap map[rune][]string) {
 	// get terminal width
 	terminalWidth := utils.GetTerminalWidth()
 	if combinedWidth > terminalWidth {
-		PrintNormal(input, asciiMap)
+		Normal(input, asciiMap)
 		return
 	}
 
@@ -30,14 +29,13 @@ func PrintAlign(input string, flag string, asciiMap map[rune][]string) {
 			for i := 0; i < 8; i++ {
 				lineOutput := ""
 				for _, char := range word {
-
 					line, ok := asciiMap[char]
 					if !ok {
 						fmt.Printf("Unavailable %c\n", char)
 					}
 					lineOutput += line[i]
 				}
-				spaces := utils.GetSpacesBetween(flag, lineOutput)
+				spaces := utils.GetSpaces(flag, lineOutput)
 				lineOutput = strings.Repeat(" ", spaces) + lineOutput
 				fmt.Println(lineOutput)
 			}

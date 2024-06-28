@@ -28,13 +28,13 @@ func GetTerminalWidth() int {
 }
 
 // function to get spaces to add for alignment depending on the alignment flag
-func GetSpacesBetween(flag string, asciiString string) int {
+func GetSpaces(flag string, asciiString string) int {
 	terminalWidth := GetTerminalWidth()
 
 	spaces := 0
 	switch flag {
 	case "right":
-		spaces = terminalWidth - len(asciiString)
+		spaces = terminalWidth - len(asciiString) -1
 	case "left":
 		spaces = 0
 	case "center":
@@ -115,21 +115,18 @@ func ValidBanner(banner string) bool {
 }
 
 // function to check if input string contains unprintable and unsupported characters that are not within the ascii printable range
-func ContainsUnsupportedCharacters(input string) (bool, string) {
+func IsValidInput(input string) (bool, string) {
 	NonPrintableChars := []string{"\\a", "\\b", "\\t", "\\v", "\\f", "\\r", "\a", "\b", "\t", "\v", "\f", "\r"}
 	for _, char := range NonPrintableChars {
 		if contains := strings.Contains(input, char); contains {
-			errmsg := fmt.Sprintf("Error: input contains non-printable character: %q\n", char)
-			return true, errmsg
+			return false, string(char)
 		}
 	}
 	// other characters
-	input = strings.ReplaceAll(input, "\\n", "\n")
 	for _, ch := range input {
 		if !((ch >= 32 && ch <= 126) || ch == '\n') {
-			errmsg := fmt.Sprintf("Error: input contains unallowed character: %q\n", ch)
-			return true, errmsg
+			return false, string(ch)
 		}
 	}
-	return false, ""
+	return true, input
 }

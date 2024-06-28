@@ -6,7 +6,7 @@ import (
 )
 
 // test  for unsupported and unallowed characters
-func Test_ContainsUnsupportedCharacters(t *testing.T) {
+func Test_IsValidInput(t *testing.T) {
 	tests := []struct {
 		name    string
 		input   string
@@ -16,25 +16,25 @@ func Test_ContainsUnsupportedCharacters(t *testing.T) {
 		{
 			name:    "No unsupported characters",
 			input:   "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789???",
-			want:    false,
+			want:    true,
 			wantErr: "",
 		},
 		{
 			name:    "One unsupported character",
 			input:   "abcde\tfghij",
-			want:    true,
+			want:    false,
 			wantErr: "Error: input contains non-printable character: %q\n",
 		},
 		{
 			name:    "Multiple unsupported characters",
 			input:   "abcde\a\bfghi$j",
-			want:    true,
+			want:    false,
 			wantErr: "Error: input contains non-printable character: %q\n",
 		},
 		{
 			name:  "Empty string",
 			input: "",
-			want:  false,
+			want:  true,
 			wantErr: `Usage: go run . [OPTION] [STRING] [BANNER]
 
 			Example: go run . --align=right something standard`,
@@ -42,26 +42,26 @@ func Test_ContainsUnsupportedCharacters(t *testing.T) {
 		{
 			name:    "String with only unsupported characters",
 			input:   "\a\b\t\v",
-			want:    true,
+			want:    false,
 			wantErr: "Error: input contains non-printable character: %q\n",
 		},
 		{
 			name:    "String with special characters",
 			input:   "Hello, world!How are you?",
-			want:    false,
+			want:    true,
 			wantErr: "",
 		},
 
 		{
 			name:    "string with unicode characters",
 			input:   "こんにちは、世界！",
-			want:    true,
+			want:    false,
 			wantErr: "Error: input contains unallowed character: %q\n",
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got, errmsg := ContainsUnsupportedCharacters(tt.input)
+			got, errmsg := IsValidInput(tt.input)
 			if got != tt.want {
 				t.Errorf("ContainsUnsupportedCharacters() got = %v, want %v", got, tt.want)
 			}
