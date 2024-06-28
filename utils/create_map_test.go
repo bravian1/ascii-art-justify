@@ -1,57 +1,51 @@
 package utils
 
 import (
-	"os"
 	"reflect"
 	"testing"
 )
 
 func Test_CreateMap(t *testing.T) {
-	type args struct {
-		file *os.File
-	}
 	tests := []struct {
-		name string
-		file string // test file
-		args
-		want    map[rune][]string
-		wantErr bool
+		name     string
+		filename string // test filename
+		want     map[rune][]string
+		wantErr  bool
 	}{
 		{
-			name:    "valid file with 95 characters",
-			file:    "testdata/standard.txt",
-			wantErr: false,
+			name:     "valid filename with 95 characters",
+			filename: "testdata/standard",
+			wantErr:  false,
+		},
+		{
+			name:     "empty filename",
+			filename: "testdata/empty",
+			want:     nil,
+			wantErr:  true,
+		},
+		{
+			name:     "filename with less than 95 characters",
+			filename: "testdata/fewcharacters",
+			want:     nil,
+			wantErr:  true,
+		},
+		{
+			name:     "File with More Than 95 Characters",
+			filename: "testdata/manycharacters",
+			want:     nil,
+			wantErr:  true,
 		},
 
 		{
-			name:    "empty file",
-			file:    "testdata/empty.txt",
-			want:    nil,
-			wantErr: true,
-		},
-		{
-			name:    "file with less than 95 characters",
-			file:    "testdata/fewcharacters.txt",
-			want:    nil,
-			wantErr: true,
-		},
-		{
-			name:    "File with More Than 95 Characters",
-			file:    "testdata/manycharacters.txt",
-			want:    nil,
-			wantErr: true,
-		},
-
-		{
-			name:    "file with characters with length less than 8",
-			file:    "testdata/charlenght.txt",
-			want:    nil,
-			wantErr: true,
+			name:     "filename with characters with length less than 8",
+			filename: "testdata/charlenght",
+			want:     nil,
+			wantErr:  true,
 		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			if got := CreateMap(tt.args.file); !reflect.DeepEqual(got, tt.want) {
+			if got := CreateMap(tt.filename); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("CreateMap() = %v, want %v", got, tt.want)
 			}
 		})
