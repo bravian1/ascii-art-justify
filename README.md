@@ -4,7 +4,7 @@
 
 This project is an extension of a previous project going by a similar name. The initial project, ascii-art, was a project that was used to print text data in an artistic format. In it, there were a few files we referred to as banner files that contained graphic representations of printable ascii characters. When the user needed to print their data on the console, the program would instead print the graphic representation of the same. 
 
-This project is an extension by the virtue that it offers the user the ability to use an optional flag when invoking the program. This flag is then used to decide hwo the text would appear in the console. The new concepts introduced is alignment. The user now has the option to request the text to be aligned in a particular way.
+This project is an extension by the virtue that it offers the user the ability to use an optional flag when invoking the program. This flag is then used to decide how the text would appear in the console. The new concepts introduced is alignment. The user now has the option to request the text to be aligned in a particular way.
 
 
 ## Features
@@ -25,9 +25,11 @@ This project is an extension by the virtue that it offers the user the ability t
 
 The project also allows the user to include the banner file name that they need to be used to display the art. Currently we only accept three banner files which are: 
 
-+ standard
-+ shadow
-+ thinkertoy
+  + [`shadow`](https://learn.zone01kisumu.ke/git/root/public/src/branch/master/subjects/ascii-art/shadow.txt)
+  + [`standard`](https://learn.zone01kisumu.ke/git/root/public/src/branch/master/subjects/ascii-art/standard.txt)
+  + [`thinkertoy`](https://learn.zone01kisumu.ke/git/root/public/src/branch/master/subjects/ascii-art/thinkertoy.txt)
+
+
 
 #### Alignment [OPTION]
 
@@ -98,9 +100,9 @@ go run . --align=center "Hello" "shadow"
 
 #### contibutors
 
-[sfana](https://learn.zone01kisumu.ke/git/shfana)
-[bnyatoro](https://learn.zone01kisumu.ke/git/bnyatoro)
-[anoduor](https://learn.zone01kisumu.ke/git/anoduor)
+- [sfana](https://learn.zone01kisumu.ke/git/shfana)
+- [bnyatoro](https://learn.zone01kisumu.ke/git/bnyatoro)
+- [anoduor](https://learn.zone01kisumu.ke/git/anoduor)
 
 #### To contribute
 

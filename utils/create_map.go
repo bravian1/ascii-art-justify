@@ -31,7 +31,7 @@ func CreateMap(file *os.File) map[rune][]string {
 		fmt.Println("the banner file does not contain the expected format\n", file)
 		return nil
 	}
-	
+
 	if len(asciiMap) == 0 || len(asciiMap) != 95 || lines != 854 {
 		fmt.Printf("the banner file %q does not contain the expected format\n", file.Name())
 		return nil
